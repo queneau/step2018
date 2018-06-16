@@ -46,6 +46,7 @@ def readRightparen(left, index):
     return token, index + 1
 
 
+#記号をトークンに変換
 def tokenize(line):
     tokens = []
     index = 0
@@ -56,6 +57,14 @@ def tokenize(line):
             (token, index) = readPlus(line, index)
         elif line[index] == '-':
             (token, index) = readMinus(line, index)
+        elif line[index] == '*':
+            (token, index) = readMul(line, index)
+        elif line[index] == '/':
+            (token, index) = readDiv(line, index)
+        elif line[index] == '(':
+            (token, index) = readLeftparen(line, index)
+        elif line[index] == ')':
+            (token, index) = readRightparen(line, index)
         else:
             print('Invalid character found: ' + line[index])
             exit(1)
