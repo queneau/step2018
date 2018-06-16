@@ -90,10 +90,10 @@ def test(line, expectedAnswer):
 
 # Add more tests to this function :)
 def runTest():
-    print "==== Test started! ===="
+    print ("==== Test started! ====")
     test("1+2", 3)
     test("1.0+2.1-3", 0.1)
-    print "==== Test finished! ====\n"
+    print ("==== Test finished! ====\n")
 
 runTest()
 
