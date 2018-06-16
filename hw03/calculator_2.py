@@ -1,3 +1,4 @@
+#数式を行で読み込み
 def readNumber(line, index):
     number = 0
     while index < len(line) and line[index].isdigit():
@@ -14,6 +15,7 @@ def readNumber(line, index):
     return token, index
 
 
+#各記号を認識
 def readPlus(line, index):
     token = {'type': 'PLUS'}
     return token, index + 1
@@ -21,6 +23,26 @@ def readPlus(line, index):
 
 def readMinus(line, index):
     token = {'type': 'MINUS'}
+    return token, index + 1
+
+
+def readMul(line, index):
+    token = {'type', 'MUL'}
+    return token, index + 1
+
+
+def readDiv(line, index):
+    token = {'type', 'DIV'}
+    return token, index + 1
+
+
+def readLeftparen(left, index):
+    token = {'type', 'LEFT'}
+    return token, index + 1
+
+
+def readRightparen(left, index):
+    token = {'tyoe', 'RIGHT'}
     return token, index + 1
 
 
@@ -35,7 +57,7 @@ def tokenize(line):
         elif line[index] == '-':
             (token, index) = readMinus(line, index)
         else:
-            print 'Invalid character found: ' + line[index]
+            print('Invalid character found: ' + line[index])
             exit(1)
         tokens.append(token)
     return tokens
@@ -52,7 +74,7 @@ def evaluate(tokens):
             elif tokens[index - 1]['type'] == 'MINUS':
                 answer -= tokens[index]['number']
             else:
-                print 'Invalid syntax'
+                print('Invalid syntax')
         index += 1
     return answer
 
@@ -61,9 +83,9 @@ def test(line, expectedAnswer):
     tokens = tokenize(line)
     actualAnswer = evaluate(tokens)
     if abs(actualAnswer - expectedAnswer) < 1e-8:
-        print "PASS! (%s = %f)" % (line, expectedAnswer)
+        print("PASS! (%s = %f)" % (line, expectedAnswer))
     else:
-        print "FAIL! (%s should be %f but was %f)" % (line, expectedAnswer, actualAnswer)
+        print("FAIL! (%s should be %f but was %f)" % (line, expectedAnswer, actualAnswer))
 
 
 # Add more tests to this function :)
@@ -76,8 +98,8 @@ def runTest():
 runTest()
 
 while True:
-    print '> ',
-    line = raw_input()
+    print('> ',)
+    line = input()
     tokens = tokenize(line)
     answer = evaluate(tokens)
-    print "answer = %f\n" % answer
+    print("answer = %f\n" % answer)
