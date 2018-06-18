@@ -4,7 +4,7 @@ def readNumber(line, index):
     flag = 0
     figure = 1
     while index < len(line) and (line[index].isdigit() or line[index] == '.'):
-        if line[index] = = '.':
+        if line[index] == '.':
             flag = 1
         else:
             number = number * 10 + int(line[index])
