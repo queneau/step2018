@@ -1,17 +1,17 @@
 #数式を行で読み込み
 def readNumber(line, index):
     number = 0
-    while index < len(line) and line[index].isdigit():
-        number = number * 10 + int(line[index])
+    flag = 0
+    figure = 1
+    while index < len(line) and (line[index].isdigit() or line[index] == '.'):
+        if line[index] = = '.':
+            flag = 1
+        else:
+            number = number * 10 + int(line[index])
+            if flag == 1:
+                figure *= 0.1 
         index += 1
-    if index < len(line) and line[index] == '.':
-        index += 1
-        keta = 0.1
-        while index < len(line) and line[index].isdigit():
-            number += int(line[index]) * keta
-            keta *= 0.1
-            index += 1
-    token = {'type': 'NUMBER', 'number': number}
+    token = {'type': 'NUMBER', 'number': number*figure}        
     return token, index
 
 
@@ -46,6 +46,7 @@ def readRightparen(left, index):
     return token, index + 1
 
 
+#記号をトークンに変換
 def tokenize(line):
     tokens = []
     index = 0
@@ -56,6 +57,14 @@ def tokenize(line):
             (token, index) = readPlus(line, index)
         elif line[index] == '-':
             (token, index) = readMinus(line, index)
+        elif line[index] == '*':
+            (token, index) = readMul(line, index)
+        elif line[index] == '/':
+            (token, index) = readDiv(line, index)
+        elif line[index] == '(':
+            (token, index) = readLeftparen(line, index)
+        elif line[index] == ')':
+            (token, index) = readRightparen(line, index)
         else:
             print('Invalid character found: ' + line[index])
             exit(1)
@@ -90,10 +99,10 @@ def test(line, expectedAnswer):
 
 # Add more tests to this function :)
 def runTest():
-    print "==== Test started! ===="
+    print ("==== Test started! ====")
     test("1+2", 3)
     test("1.0+2.1-3", 0.1)
-    print "==== Test finished! ====\n"
+    print ("==== Test finished! ====\n")
 
 runTest()
 
